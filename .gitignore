@@ -1,3 +1,6 @@
 data/
 .ipynb_checkpoints/
 *.tar.gz
+Models/
+*.h5
+__pycache__/

@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class BatchGenerator(object):
     # we default stride to 1 since we dont want future values to affect past values
     def __init__(self, mains, meter, seq_per_batch, seq_len, stride=1):

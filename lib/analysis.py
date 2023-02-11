@@ -1,7 +1,5 @@
 import numpy as np
 from IPython.display import display
-import pathlib
-import algos as ALGOS
 
 def print_heads_tails(df, h=True,t=True):
     print(f'House data has shape: {df.shape}')
@@ -57,13 +55,22 @@ def classification_results(y_test, y_pred, on_threshold = 10):
     return tp, tn, fp, fn
 
 def f1(classification_results):
-    ...
+    p = precision(classification_results)
+    r = recall(classification_results)
+
+    return 2 * (p * r) / (p + r)
 
 def precision(classification_results):
-    ...
+    tp, _, fp, _ = classification_results
+
+    return tp / (tp + fp)
 
 def recall(classification_results):
-    ...
+    tp, _, _, fn = classification_results
+
+    return tp / (tp + fn)
 
 def accuracy(classification_results):
-    ...
+    tp, tn, fp, fn = classification_results
+
+    return (tp + tn) / (tp + tn + fp + fn)

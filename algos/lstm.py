@@ -1,9 +1,5 @@
-import os
-from timeit import default_timer as timer
-
 import tensorflow as tf
-from tensorflow.keras.callbacks import Callback
-from tensorflow.keras.layers import LSTM, Bidirectional, Conv1D, Dense, Flatten
+from tensorflow.keras.layers import LSTM, Bidirectional, Conv1D, Dense
 from tensorflow.keras.metrics import MeanAbsoluteError, RootMeanSquaredError
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
@@ -33,16 +29,16 @@ def get_train_data(df_train, df_val, feature, ref_norm, seq_len, seq_per_batch):
     y_train = df_train[[feature]].values
     y_val = df_val[[feature]].values
 
-    x_train_norm = normalize(x_train, ref_norm)
-    x_val_norm = normalize(x_val, ref_norm)
-    y_train_norm = normalize(y_train, ref_norm)
-    y_val_norm = normalize(y_val, ref_norm)
+    x_train = normalize(x_train, ref_norm)
+    x_val = normalize(x_val, ref_norm)
+    y_train = normalize(y_train, ref_norm)
+    y_val = normalize(y_val, ref_norm)
 
-    print('x_train_norm.shape, y_train_norm.shape, x_val_norm.shape, x_val_norm.shape')
-    print(x_train_norm.shape, y_train_norm.shape, x_val_norm.shape, x_val_norm.shape)
+    print('x_train.shape, y_train.shape, x_val.shape, x_val.shape')
+    print(x_train.shape, y_train.shape, x_val.shape, x_val.shape)
 
-    train_data_generator = BatchGenerator(x_train_norm, y_train_norm, seq_per_batch=seq_per_batch, seq_len=seq_len)
-    val_data_generator = BatchGenerator(x_val_norm, y_val_norm, seq_per_batch=seq_per_batch, seq_len=seq_len)
+    train_data_generator = BatchGenerator(x_train, y_train, seq_per_batch=seq_per_batch, seq_len=seq_len)
+    val_data_generator = BatchGenerator(x_val, y_val, seq_per_batch=seq_per_batch, seq_len=seq_len)
 
     x_train, y_train = train_data_generator.load_all()
     x_val, y_val = val_data_generator.load_all()

@@ -1,0 +1,23 @@
+
+
+-------
+*Params*
+seq_len: 32
+seq_per_batch: 1024
+strides: 1
+epochs: 40
+loss: adam
+train_rows: 521300
+val_rows: 316800
+test_rows: 190700
+norm_value: 6002.92
+norm_type: max
+lr: 0.001
+clipvalue: 10.0
+*Metrics*
+f1: 0.3269096005606167
+precision: 0.3269096005606167
+recall: 0.3269096005606167
+accuracy: 0.3269096005606167
+total_e_e: 0.3269096005606167
+mae: 0.3269096005606167

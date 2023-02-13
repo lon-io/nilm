@@ -10,16 +10,14 @@ from algos.norm import denormalize, normalize
 
 
 def create_model(seq_len, learning_rate=1e-1, clipvalue=10.):
-    # Rework of:
+    # Adaptation of:
     # https://github.com/JackKelly/neuralnilm_prototype/blob/2119292e7d5c8a137797ad3c9abf9f37e7f749af/scripts/e567.py
     # https://github.com/OdysseasKr/neural-disaggregator/blob/master/DAE/daedisaggregator.py
     model = Sequential()
 
-    # 1D Conv
     model.add(Conv1D(8, 4, activation="linear", input_shape=(seq_len, 1), padding="same", strides=1))
     model.add(Flatten())
 
-    # Fully Connected Layers
     model.add(Dropout(0.2))
     model.add(Dense((seq_len-0)*8, activation='relu'))
 
@@ -31,7 +29,6 @@ def create_model(seq_len, learning_rate=1e-1, clipvalue=10.):
 
     model.add(Dropout(0.2))
 
-    # 1D Conv
     model.add(Reshape(((seq_len-0), 8)))
     model.add(Conv1D(1, 4, activation="linear", padding="same", strides=1))
 

@@ -1,8 +1,8 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.layers import Conv1D, Dense, Flatten, Reshape
+from tensorflow.keras.layers import Conv1D, Dense, Flatten, Reshape, Dropout
 from tensorflow.keras.metrics import MeanAbsoluteError, RootMeanSquaredError
-from tensorflow.keras.models import Dropout, Sequential
+from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
 from algos.callbacks import TimingCallback

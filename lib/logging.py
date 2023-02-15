@@ -1,13 +1,17 @@
 import pathlib
 
-import algos as ALGOS
+LSTM = 'lstm'
+DAE = 'dae'
+GRU = 'gru'
+SEQ2SEQ = 'seq2seq'
 
+ALGOS = [LSTM, DAE, GRU, SEQ2SEQ]
 
 def get_file_path(house, params, is_loss=False):
     algo = params['algo']
     feature = params['feature']
 
-    assert algo in ALGOS.ALGOS
+    assert algo in ALGOS
 
     logDir = 'logs';
     pathlib.Path(logDir).mkdir(parents=True, exist_ok=True)
@@ -46,9 +50,11 @@ def metrics_to_file(house, params, metrics):
     with open(file_path, 'a') as f:
         f.write('\n\n-------\n')
         f.write('*Params*\n')
-        if params["algo"] in [ALGOS.LSTM, ALGOS.DAE]:
-            f.write(f'seq_len: {params["seq_len"]}\n')
-            f.write(f'seq_per_batch: {params["seq_per_batch"]}\n')
+
+        f.write(f'seq_len: {params["seq_len"]}\n')
+        f.write(f'seq_per_batch: {params["seq_per_batch"]}\n')
+
+        if 'strides' in params:
             f.write(f'strides: {params["strides"]}\n')
 
         f.write(f'epochs: {params["epochs"]}\n')

@@ -5,7 +5,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
 from algos.callbacks import TimingCallback
-from algos.data_gen import Seq2SeqDataGenerator
+from algos.data_gen import Seq2PointDataGenerator
 from algos.norm import denormalize, normalize
 
 
@@ -48,8 +48,8 @@ def get_train_data(df_train, df_val, feature, ref_norm, seq_len):
     print('x_train.shape, y_train.shape, x_val.shape, x_val.shape')
     print(x_train.shape, y_train.shape, x_val.shape, x_val.shape)
 
-    train_data_generator = Seq2SeqDataGenerator(x_train, y_train, seq_len=seq_len)
-    val_data_generator = Seq2SeqDataGenerator(x_val, y_val, seq_len=seq_len)
+    train_data_generator = Seq2PointDataGenerator(x_train, y_train, seq_len=seq_len)
+    val_data_generator = Seq2PointDataGenerator(x_val, y_val, seq_len=seq_len)
 
     x_train, y_train = train_data_generator.load_all()
     x_val, y_val = val_data_generator.load_all()
@@ -66,7 +66,7 @@ def get_test_data(df_test, feature, ref_norm, seq_len):
     print('x_test.shape, y_test.shape')
     print(x_test.shape, y_test.shape)
 
-    test_data_generator = Seq2SeqDataGenerator(x_test, y_test, seq_len=seq_len)
+    test_data_generator = Seq2PointDataGenerator(x_test, y_test, seq_len=seq_len)
     x_test, y_test = test_data_generator.load_all()
 
     return x_test, y_test

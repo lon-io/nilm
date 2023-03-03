@@ -31,16 +31,16 @@ def parse_data(df):
 
     return df
 
-def read_labels():
+def read_labels(house):
     labels = {}
-    for house in range(1, 2):
+    for house in range(house, house+1):
         fileName = get_chunk_path(house, 1)
         house_labels = pd.read_csv(fileName, sep = '\t', nrows=1).columns.tolist()
         labels[house] = house_labels
     return labels
 
 def get_house_data_generator(house):
-    labels = read_labels()
+    labels = read_labels(house)
     num_chunks = get_num_chunks(house)
     for i in range(1, num_chunks + 1):
         if int(i) == 1:

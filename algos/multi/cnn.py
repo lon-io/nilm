@@ -10,8 +10,6 @@ from algos.norm import denormalize, normalize
 
 
 def create_model(seq_len, learning_rate, clipvalue):
-    # Adapation of:
-    # https://arxiv.org/pdf/1612.09106v3.pdf
     model = Sequential()
 
     model.add(Conv1D(30, 10, activation='relu', input_shape=(seq_len,1), padding="same", strides=1))

@@ -3,9 +3,9 @@ import pathlib
 LSTM = 'lstm'
 DAE = 'dae'
 GRU = 'gru'
-SEQ2SEQ = 'seq2seq'
+CNN = 'cnn'
 
-ALGOS = [LSTM, DAE, GRU, SEQ2SEQ]
+ALGOS = [LSTM, DAE, GRU, CNN]
 
 def get_file_path(house, params, is_loss=False):
     algo = params['algo']

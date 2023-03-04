@@ -1,18 +1,15 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.layers import Conv1D, Dense, Flatten, Reshape, Dropout
+from tensorflow.keras.layers import Conv1D, Dense, Dropout, Flatten, Reshape
 from tensorflow.keras.metrics import MeanAbsoluteError, RootMeanSquaredError
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
 from algos.callbacks import TimingCallback
-from algos.norm import denormalize, normalize, get_ref_norm
+from algos.norm import denormalize, normalize
 
 
-def create_model(seq_len, learning_rate=1e-1, clipvalue=10.):
-    # Adaptation of:
-    # https://github.com/JackKelly/neuralnilm_prototype/blob/2119292e7d5c8a137797ad3c9abf9f37e7f749af/scripts/e567.py
-    # https://github.com/OdysseasKr/neural-disaggregator/blob/master/DAE/daedisaggregator.py
+def create_model(seq_len, learning_rate=1e-1):
     model = Sequential()
 
     model.add(Conv1D(8, 4, activation="linear", input_shape=(seq_len, 1), padding="same", strides=1))
@@ -48,21 +45,25 @@ def get_train_data(df_train, df_val, features, ref_norm, seq_len, seq_per_batch)
     y_train_norm = normalize(y_train, ref_norm)
     y_val_norm = normalize(y_val, ref_norm)
 
-    print(x_train_norm.shape, y_train_norm.shape, x_val.shape, x_val_norm.shape)
+    print(x_train_norm.shape, y_train_norm.shape, x_val_norm.shape, y_val_norm.shape)
 
     extra_train = seq_len - (len(x_train) % seq_len)
 
     x_train_norm = np.append(x_train_norm, np.zeros(extra_train))
-    y_train_norm = np.append(y_train_norm, np.zeros(extra_train))
+    y_train_norm = np.append(y_train_norm, np.zeros((extra_train, len(features))), axis=0)
+
+    print(x_train_norm.shape, y_train_norm.shape, x_val.shape, x_val_norm.shape)
 
     extra_val = seq_len - (len(x_val) % seq_len)
     x_val_norm = np.append(x_val_norm,  np.zeros(extra_val))
-    y_val_norm = np.append(y_val_norm,  np.zeros(extra_val))
+    y_val_norm = np.append(y_val_norm,  np.zeros((extra_val, len(features))), axis=0)
 
     x_train = np.reshape(x_train_norm, (len(x_train_norm) // seq_len, seq_len, 1))
     y_train = np.reshape(y_train_norm, (len(y_train_norm) // seq_len, seq_len, len(features)))
     x_val = np.reshape(x_val_norm, (len(x_val_norm) // seq_len, seq_len, 1))
     y_val = np.reshape(y_val_norm, (len(y_val_norm) // seq_len, seq_len, len(features)))
+
+    print(x_train.shape, y_train.shape, x_val.shape, y_val.shape)
 
     return x_train, y_train, x_val, y_val
 
@@ -81,7 +82,7 @@ def get_test_data(df_test, features, ref_norm, seq_len, seq_per_batch):
     extra_test = seq_len - (len(x_test) % seq_len)
 
     x_test = np.append(x_test, np.zeros(extra_test))
-    y_test = np.append(y_test, np.zeros(extra_test))
+    y_test = np.append(y_test, np.zeros((extra_test, len(features))), axis=0)
 
     x_test = np.reshape(x_test, (len(x_test) // seq_len, seq_len, 1))
 

@@ -10,9 +10,6 @@ from algos.norm import denormalize, normalize
 
 
 def create_model(seq_len, learning_rate=1e-1, clipvalue=10.):
-    # Adaptation of:
-    # https://github.com/JackKelly/neuralnilm_prototype/blob/2119292e7d5c8a137797ad3c9abf9f37e7f749af/scripts/e567.py
-    # https://github.com/OdysseasKr/neural-disaggregator/blob/master/DAE/daedisaggregator.py
     model = Sequential()
 
     model.add(Conv1D(8, 4, activation="linear", input_shape=(seq_len, 1), padding="same", strides=1))

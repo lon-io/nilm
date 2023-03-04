@@ -6,3 +6,4 @@ Models/
 __pycache__/
 *.DS_Store
 logs/
+.DS_Store

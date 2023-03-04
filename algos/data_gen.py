@@ -94,4 +94,3 @@ class Seq2PointDataGenerator(object):
                 print('seq_index', seq_index)
 
         return x, y
-

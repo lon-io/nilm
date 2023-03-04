@@ -19,17 +19,17 @@ def create_model(seq_len, learning_rate=1e-1, clipvalue=10.):
     model.add(Flatten())
 
     model.add(Dropout(0.2))
-    model.add(Dense((seq_len)*8, activation='relu'))
+    model.add(Dense(seq_len*8, activation='relu'))
 
     model.add(Dropout(0.2))
     model.add(Dense(128, activation='relu'))
 
     model.add(Dropout(0.2))
-    model.add(Dense((seq_len)*8, activation='relu'))
+    model.add(Dense(seq_len*8, activation='relu'))
 
     model.add(Dropout(0.2))
 
-    model.add(Reshape(((seq_len), 8)))
+    model.add(Reshape((seq_len, 8)))
     model.add(Conv1D(1, 4, activation="linear", padding="same", strides=1))
 
     optimizer = Adam(lr = learning_rate)

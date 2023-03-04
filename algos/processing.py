@@ -1,5 +1,6 @@
 import math
 
+
 def split_df_by_dates(df, dates, house, split_points = (0.5, 0.8)):
     test_split_point, val_split_point = split_points;
 
@@ -10,9 +11,9 @@ def split_df_by_dates(df, dates, house, split_points = (0.5, 0.8)):
     n_days = len(dates[house])
     train_index = math.ceil(n_days *test_split_point)
     test_index = math.ceil(n_days *val_split_point)
-    df_train = df.loc[:dates[1][train_index]]
-    df_val = df.loc[dates[1][train_index]:dates[1][test_index]]
-    df_test = df.loc[dates[1][test_index]:]
+    df_train = df.loc[:dates[house][train_index]]
+    df_val = df.loc[dates[house][train_index]:dates[house][test_index]]
+    df_test = df.loc[dates[house][test_index]:]
     print('df_train.shape: ', df_train.shape)
     print('df_val.shape: ', df_val.shape)
     print('df_test.shape: ', df_test.shape)

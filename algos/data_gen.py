@@ -2,7 +2,6 @@ import numpy as np
 
 
 class Seq2PointDataGenerator(object):
-    # we default stride to 1 since we dont want future values to affect past values
     def __init__(self, mains, meter, seq_len):
         assert(len(mains) == len(meter))
         self.data_x = mains

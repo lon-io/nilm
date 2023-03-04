@@ -26,5 +26,4 @@ def denormalize(x, ref_norm):
     return x * ref_norm
 
 def reshape_x(x):
-    # return np.reshape(x, (x.shape[0], n_bins, 1))
     return np.reshape(x, (x.shape[0], 1, 1))

@@ -7,7 +7,6 @@ def split_df_by_dates(df, dates, house, split_points = (0.5, 0.8)):
     assert(test_split_point >= 0.5 and test_split_point < 1)
     assert(val_split_point >= (test_split_point + 0.1) and val_split_point <= (1 - 0.1))
 
-    # Separate house 1 data into train, validation and test data
     n_days = len(dates[house])
     train_index = math.ceil(n_days *test_split_point)
     test_index = math.ceil(n_days *val_split_point)

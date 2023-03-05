@@ -17,10 +17,8 @@ def create_model(seq_len, learning_rate, clipvalue):
     model.add(Conv1D(40, 6, activation='relu', padding="same", strides=1))
     model.add(Conv1D(50, 5, activation='relu', padding="same", strides=1))
     model.add(Conv1D(50, 5, activation='relu', padding="same", strides=1))
-
     model.add(Flatten())
     model.add(Dense(1024, activation='relu'))
-    model.add(Dropout(0.5))
     model.add(Dense(3, activation='linear'))
 
     opt_adam = Adam(

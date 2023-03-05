@@ -1,8 +1,8 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
-# Plot first 10 days of device
+# Plot first n days of appliance
 def plot_ft_days(df, dates, house, label, n_days):
     days_series = df.loc[:dates[house][n_days]][label]
     print(days_series.shape)
@@ -17,6 +17,7 @@ def plot_ft_days(df, dates, house, label, n_days):
     fig.tight_layout()
     fig.subplots_adjust(top=0.95)
 
+# Plot results of predictions
 def plot_prediction_windows(label, y_test, y_pred, use_active = False, active_factor=2, n_samples = 32):
     y_test_mean = y_test.mean()
     n_plots_max = 16

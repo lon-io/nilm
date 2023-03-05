@@ -10,7 +10,9 @@ from algos.norm import denormalize, normalize
 
 
 def create_model(seq_len, learning_rate, clipvalue):
+    # Implementation of https://dl.acm.org/doi/10.1145/2821650.2821672
     model = Sequential()
+
     model.add(Conv1D(16, 4, activation="linear", input_shape=(seq_len, 1), padding="same", strides=1))
     model.add(Bidirectional(LSTM(128, return_sequences=True, stateful=False), merge_mode='concat'))
     model.add(Bidirectional(LSTM(256, return_sequences=False, stateful=False), merge_mode='concat'))
@@ -18,7 +20,6 @@ def create_model(seq_len, learning_rate, clipvalue):
     model.add(Dense(1, activation='linear'))
 
     opt_adam = Adam(lr = learning_rate, clipvalue=clipvalue)
-
     model.compile(loss='mse', optimizer=opt_adam,metrics=[RootMeanSquaredError(), MeanAbsoluteError()])
 
     return model
@@ -69,10 +70,6 @@ def train(model, feature, df_train, df_val, ref_norm, seq_len, seq_per_batch, ep
                                                  save_weights_only=True,
                                                  verbose=1)
     callbacks = [time_cb, cp_callback]
-
-    # history = model.fit(train_data_generator.generate(), steps_per_epoch=n_batches,
-    #                 epochs=epochs,
-    #                 validation_data=valid_data_generator.generate(), callbacks=callbacks)
 
     history = model.fit(x_train, y_train, epochs=epochs, batch_size=seq_per_batch, validation_data=(x_val, y_val), callbacks=callbacks)
 

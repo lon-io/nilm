@@ -7,6 +7,7 @@ from tensorflow.keras.optimizers import Adam
 
 def create_model(seq_len, learning_rate, clipvalue):
     model = Sequential()
+
     model.add(Conv1D(16, 4, activation="linear", input_shape=(seq_len, 1), padding="same", strides=1))
     model.add(Conv1D(8, 4, activation="linear", padding="same", strides=1))
     model.add(Bidirectional(GRU(64, return_sequences=True, stateful=False), merge_mode='concat'))

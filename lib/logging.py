@@ -78,6 +78,7 @@ def metrics_to_file(house, params, metrics):
         f.write(f'mae: {metrics["f1"]}\n')
 
 
+# Test logging
 if __name__ == '__main__':
     params = {'algo': 'lstm', 'feature': 'ft_kettle', 'seq_len': 32, 'seq_per_batch': 1024, 'strides': 1, 'epochs': 40, 'train_rows': 521300,
         'val_rows': 316800, 'test_rows': 190700, 'norm_value': 6002.92, 'norm_type': 'max', 'learning_rate': 0.001, 'loss': 'adam', 'clipvalue': 10.0}

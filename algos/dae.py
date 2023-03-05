@@ -10,22 +10,14 @@ from algos.norm import denormalize, normalize
 
 
 def create_model(seq_len, learning_rate=1e-1, clipvalue=10.):
+    # Implementation of https://dl.acm.org/doi/10.1145/2821650.2821672
     model = Sequential()
 
     model.add(Conv1D(8, 4, activation="linear", input_shape=(seq_len, 1), padding="same", strides=1))
     model.add(Flatten())
-
-    model.add(Dropout(0.2))
     model.add(Dense(seq_len*8, activation='relu'))
-
-    model.add(Dropout(0.2))
     model.add(Dense(128, activation='relu'))
-
-    model.add(Dropout(0.2))
     model.add(Dense(seq_len*8, activation='relu'))
-
-    model.add(Dropout(0.2))
-
     model.add(Reshape((seq_len, 8)))
     model.add(Conv1D(1, 4, activation="linear", padding="same", strides=1))
 

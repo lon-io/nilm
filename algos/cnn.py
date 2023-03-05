@@ -10,6 +10,7 @@ from algos.norm import denormalize, normalize
 
 
 def create_model(seq_len, learning_rate, clipvalue):
+    # Implementation of https://arxiv.org/abs/1612.09106
     model = Sequential()
 
     model.add(Conv1D(30, 10, activation='relu', input_shape=(seq_len,1), padding="same", strides=1))
@@ -17,10 +18,8 @@ def create_model(seq_len, learning_rate, clipvalue):
     model.add(Conv1D(40, 6, activation='relu', padding="same", strides=1))
     model.add(Conv1D(50, 5, activation='relu', padding="same", strides=1))
     model.add(Conv1D(50, 5, activation='relu', padding="same", strides=1))
-
     model.add(Flatten())
     model.add(Dense(1024, activation='relu'))
-    model.add(Dropout(0.5))
     model.add(Dense(1, activation='linear'))
 
     opt_adam = Adam(

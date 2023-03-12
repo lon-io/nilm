@@ -6,7 +6,8 @@ from tensorflow.keras.optimizers import Adam
 
 
 def create_model(seq_len, learning_rate, clipvalue):
-    # Implementation of https://ieeexplore.ieee.org/document/7860885
+    # Paper - https://ieeexplore.ieee.org/document/7860885
+    # Adapted from - https://github.com/OdysseasKr/neural-disaggregator/blob/master/GRU/grudisaggregator.py#L347
     model = Sequential()
 
     model.add(Conv1D(16, 4, activation="linear", input_shape=(seq_len, 1), padding="same", strides=1))

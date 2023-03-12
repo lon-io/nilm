@@ -10,7 +10,8 @@ from algos.norm import denormalize, normalize
 
 
 def create_model(seq_len, learning_rate, clipvalue):
-    # Implementation of https://arxiv.org/abs/1612.09106
+    # Paper -  https://arxiv.org/abs/1612.09106
+    # Adapted from - https://github.com/MingjunZhong/seq2point-nilm/blob/master/model_structure.py#L4
     model = Sequential()
 
     model.add(Conv1D(30, 10, activation='relu', input_shape=(seq_len,1), padding="same", strides=1))

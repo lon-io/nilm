@@ -10,7 +10,8 @@ from algos.norm import denormalize, normalize
 
 
 def create_model(seq_len, learning_rate=1e-1, clipvalue=10.):
-    # Implementation of https://dl.acm.org/doi/10.1145/2821650.2821672
+    # Paper - https://dl.acm.org/doi/10.1145/2821650.2821672
+    # Adapted from - https://github.com/ETSSmartRes/VAE-NILM/blob/main/NILM_functions.py#L704
     model = Sequential()
 
     model.add(Conv1D(8, 4, activation="linear", input_shape=(seq_len, 1), padding="same", strides=1))
